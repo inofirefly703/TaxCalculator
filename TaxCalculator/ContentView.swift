@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var tax10 = 0.0
     @State private var baht = 0.0
 
+    
     var body: some View {
         VStack(spacing: 20) {
 
