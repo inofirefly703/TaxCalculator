@@ -81,90 +81,91 @@ struct ContentView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 20) {
-                
-                if isLoading {
-                    ProgressView("読み込み中...")
-                }
-                if !errorMessage.isEmpty {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(20)
-                        .shadow(radius: 10)
-                        .padding()
-                }
-                Text("為替計算アプリ")
-                
-                    .font(.title)
-                
-                Toggle(isOn: $isYenToBaht) {
-                    Text(isYenToBaht ? "円 → バーツ" : "バーツ → 円")
-                }
-                
-                TextField("金額を入力", text: $inputText)
-                    .keyboardType(.decimalPad)
-                    .textFieldStyle(.roundedBorder)
-                
-                Button("計算する") {
-                    if let value = Double(inputText) {
-                        if isYenToBaht {
-                            result = value * exchangeRate
-                        } else {
-                            result = value / exchangeRate
-                        }
-                        Button("計算する") {
-                            // 既存処理
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(12)
-                        
-                    }
-                    
-                }
-                Button("最新レート取得") {
-                    fetchExchangeRate()
-                }
-                TextField("2つ目の数字", text: $secondInput)
-                    .keyboardType(.decimalPad)
-                    .textFieldStyle(.roundedBorder)
-                    .onAppear {
-                        fetchExchangeRate()
-                        
-                    }
-                
-                HStack {
-                    Button("+") {
-                        if let v1 = Double(inputText), let v2 = Double(secondInput) {
-                            result = v1 + v2
-                        }
-                    }
-                    
-                    Button("−") {
-                        if let v1 = Double(inputText), let v2 = Double(secondInput) {
-                            result = v1 - v2
-                        }
-                    }
-                    
-                    Button("×") {
-                        if let v1 = Double(inputText), let v2 = Double(secondInput) {
-                            result = v1 * v2
-                        }
-                    }
-                    
-                    Button("÷") {
-                        if let v1 = Double(inputText), let v2 = Double(secondInput), v2 != 0 {
-                            result = v1 / v2
-                        }
-                    }
-                }
-                
-                Text("結果: \(result, specifier: "%.2f")")
-                    .font(.title2)
+                Text("Tax Calculator")
             }
+            
+            ProgressView("読み込み中...")
+        }
+        if !errorMessage.isEmpty {
+            Text(errorMessage)
+                .foregroundColor(.red)
+                .padding()
+                .background(Color.white)
+                .cornerRadius(20)
+                .shadow(radius: 10)
+                .padding()
+        }
+        Text("為替計算アプリ")
+        
+            .font(.title)
+        
+        Toggle(isOn: $isYenToBaht) {
+            Text(isYenToBaht ? "円 → バーツ" : "バーツ → 円")
+        }
+        
+        TextField("金額を入力", text: $inputText)
+            .keyboardType(.decimalPad)
+            .textFieldStyle(.roundedBorder)
+        
+        Button("計算する") {
+            if let value = Double(inputText) {
+                if isYenToBaht {
+                    result = value * exchangeRate
+                } else {
+                    result = value / exchangeRate
+                }
+                Button("計算する") {
+                    // 既存処理
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(12)
+                
+            }
+            
+        }
+        Button("最新レート取得") {
+            fetchExchangeRate()
+        }
+        TextField("2つ目の数字", text: $secondInput)
+            .keyboardType(.decimalPad)
+            .textFieldStyle(.roundedBorder)
+            .onAppear {
+                fetchExchangeRate()
+                
+            }
+        
+        HStack {
+            Button("+") {
+                if let v1 = Double(inputText), let v2 = Double(secondInput) {
+                    result = v1 + v2
+                }
+            }
+            
+            Button("−") {
+                if let v1 = Double(inputText), let v2 = Double(secondInput) {
+                    result = v1 - v2
+                }
+            }
+            
+            Button("×") {
+                if let v1 = Double(inputText), let v2 = Double(secondInput) {
+                    result = v1 * v2
+                }
+            }
+            
+            Button("÷") {
+                if let v1 = Double(inputText), let v2 = Double(secondInput), v2 != 0 {
+                    result = v1 / v2
+                }
+            }
+        }
+        
+        Text("結果: \(result, specifier: "%.2f")")
+            .font(.title2)
+    }
                     .padding()
                     .onAppear {
                         fetchExchangeRate()
@@ -174,5 +175,4 @@ struct ContentView: View {
         #Preview {
             ContentView()
         }
-    }
-}
+    
